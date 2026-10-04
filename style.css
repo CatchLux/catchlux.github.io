@@ -146,10 +146,10 @@ nav a{text-decoration:none;font-weight:600;font-size:.94rem;color:var(--navy)}
 }
 .section-heading>p:last-child{color:var(--muted);font-size:1.04rem}
 
-.benefits{background:#fff}
+.benefits{background:var(--blue-soft)}
 .benefit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .benefit-card{
-  background:var(--cream);
+  background:var(--white);
   padding:32px;
   border-radius:var(--radius);
   border:1px solid var(--line);
@@ -190,13 +190,14 @@ nav a{text-decoration:none;font-weight:600;font-size:.94rem;color:var(--navy)}
 .mini-card strong{display:block;font-size:1.28rem;line-height:1.25;color:var(--navy);margin-bottom:8px}
 .mini-card p{color:var(--muted)}
 
-.sessions{background:var(--navy)}
-.sessions .eyebrow{color:var(--pink)}
-.sessions h2,.sessions .section-heading>p:last-child{color:#fff}
-.sessions .section-heading>p:last-child{opacity:.82}
+.sessions{background:var(--white)}
+.sessions .eyebrow{color:#cc5f86}
+.sessions h2{color:var(--navy)}
+.sessions .section-heading>p:last-child{color:var(--muted)}
 .session-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .session-card{
-  background:#fff;
+  background:var(--cream);
+  border:1px solid var(--line);
   padding:26px;
   border-radius:22px;
   min-height:164px;
@@ -332,3 +333,11 @@ footer{background:var(--navy-deep);color:#fff;padding:34px 0}
 .benefit-icon svg .accent{stroke:#b95179;stroke-width:2.5}
 .footer-logo{background:transparent;padding:0;filter:brightness(0) invert(1)}
 .season-pill{max-width:100%;line-height:1.5}
+
+/* Navigation follows scroll direction while staying available to keyboard users. */
+.site-header{transition:transform .25s ease}
+.site-header.nav-hidden{transform:translateY(calc(-100% - 1px))}
+.site-header:focus-within{transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){
+  .site-header{transition:none}
+}
