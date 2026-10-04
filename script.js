@@ -48,7 +48,7 @@ if(mondaySelect){
   });
 }
 
-const REGISTRATION_ENDPOINT = ""; // Paste the deployed Google Apps Script web-app URL here.
+const REGISTRATION_ENDPOINT = "https://script.google.com/macros/s/AKfycbzC602tnl3QAYk1uN9fc9Ck7Kk6JcigcEmLdw6846U88mHPHLqLXFvr1M0w2sEUXAUvqA/exec";
 
 const form=document.querySelector("#monday-form");
 const formStatus=document.querySelector("#form-status");
