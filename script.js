@@ -50,6 +50,19 @@ if(mondaySelect){
 
 const REGISTRATION_ENDPOINT = "https://script.google.com/macros/s/AKfycbzC602tnl3QAYk1uN9fc9Ck7Kk6JcigcEmLdw6846U88mHPHLqLXFvr1M0w2sEUXAUvqA/exec";
 
+function buildCalendarUrl(monday) {
+  const date = monday.replace(/-/g, "");
+  const params = new URLSearchParams({
+    action: "TEMPLATE",
+    text: "CatchLux catchball session",
+    dates: date + "T193000/" + date + "T213000",
+    ctz: "Europe/Luxembourg",
+    location: "Elsy Jacobs Gym, St George’s International School Luxembourg, 11 rue des Peupliers, L-2328 Luxembourg",
+    details: "Your CatchLux Monday session, 19:30–21:30. Bring clean indoor sports shoes and water. Parking available on site. €15 per session, payable via Wero.\nhttps://catchlux.github.io/"
+  });
+  return "https://calendar.google.com/calendar/render?" + params.toString();
+}
+
 const form=document.querySelector("#monday-form");
 const formStatus=document.querySelector("#form-status");
 if(form){
@@ -94,6 +107,14 @@ if(form){
       form.reset();
       formStatus.classList.add("active");
       formStatus.textContent="✓ You’re in! We’ve received your registration for "+selectedOption.textContent+". See you at 19:30 at the Elsy Jacobs Gym!";
+      const calendarLink=document.createElement("a");
+      calendarLink.className="calendar-link";
+      calendarLink.href=buildCalendarUrl(payload.monday);
+      calendarLink.target="_blank";
+      calendarLink.rel="noopener noreferrer";
+      calendarLink.textContent="Add to Google Calendar";
+      formStatus.appendChild(document.createElement("br"));
+      formStatus.appendChild(calendarLink);
     }catch(error){
       formStatus.classList.add("active","error");
       formStatus.textContent="We couldn’t save your registration. Please try again or join us on WhatsApp.";
