@@ -58,7 +58,7 @@ if(form){
     if(!form.reportValidity()) return;
 
     const selectedOption=mondaySelect.options[mondaySelect.selectedIndex];
-    if(!selectedOption || selectedOption.disabled || !selectedOption.value) return;
+    if(!selectedOption || selectedOption.disabled || !selectedOption.value || !sessions.some(([date,disabled]) => date === selectedOption.value && !disabled)) return;
 
     const submitButton=form.querySelector('button[type="submit"]');
     const originalText=submitButton.textContent;
@@ -89,9 +89,11 @@ if(form){
       });
 
       if(!response.ok) throw new Error("Registration failed");
+      const result=await response.json();
+      if(result.success !== true) throw new Error("Registration was not saved");
       form.reset();
       formStatus.classList.add("active");
-      formStatus.textContent="✓ You’re in! We’ve received your CatchLux registration.";
+      formStatus.textContent="✓ You’re in! We’ve received your registration for "+selectedOption.textContent+". See you at 19:30 at the Elsy Jacobs Gym!";
     }catch(error){
       formStatus.classList.add("active","error");
       formStatus.textContent="We couldn’t save your registration. Please try again or join us on WhatsApp.";
