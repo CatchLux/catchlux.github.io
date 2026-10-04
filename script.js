@@ -23,6 +23,36 @@ if(navToggle && primaryNav){
   }));
 }
 
+const siteHeader=document.querySelector(".site-header");
+if(siteHeader){
+  let previousScrollY=Math.max(0,window.scrollY);
+  let scrollFramePending=false;
+  const updateHeader=()=>{
+    const currentY=Math.max(0,window.scrollY);
+    const menuOpen=primaryNav && primaryNav.classList.contains("open");
+    const headerFocused=siteHeader.contains(document.activeElement);
+    if(currentY<=siteHeader.offsetHeight || menuOpen || headerFocused){
+      siteHeader.classList.remove("nav-hidden");
+      previousScrollY=currentY;
+    }else if(Math.abs(currentY-previousScrollY)>=12){
+      siteHeader.classList.toggle("nav-hidden",currentY>previousScrollY);
+      previousScrollY=currentY;
+    }
+    scrollFramePending=false;
+  };
+  window.addEventListener("scroll",()=>{
+    if(!scrollFramePending){
+      scrollFramePending=true;
+      window.requestAnimationFrame(updateHeader);
+    }
+  },{passive:true});
+  siteHeader.addEventListener("focusin",()=>{
+    siteHeader.classList.remove("nav-hidden");
+    previousScrollY=Math.max(0,window.scrollY);
+  });
+  updateHeader();
+}
+
 const sessions = [
 ["2026-10-05",false],["2026-10-12",false],["2026-10-19",false],["2026-10-26",false],
 ["2026-11-02",true],["2026-11-09",true],["2026-11-16",false],["2026-11-23",false],["2026-11-30",false],
