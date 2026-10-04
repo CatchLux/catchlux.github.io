@@ -48,15 +48,57 @@ if(mondaySelect){
   });
 }
 
+const REGISTRATION_ENDPOINT = ""; // Paste the deployed Google Apps Script web-app URL here.
+
 const form=document.querySelector("#monday-form");
 const formStatus=document.querySelector("#form-status");
 if(form){
-  form.addEventListener("submit", e=>{
+  form.addEventListener("submit", async e=>{
     e.preventDefault();
     if(!form.reportValidity()) return;
-    const chosen=mondaySelect.options[mondaySelect.selectedIndex].textContent;
-    formStatus.classList.add("active");
-    formStatus.textContent="✓ Preview registration received for "+chosen+". In the live version, this will be saved to the CatchLux Google Sheet.";
+
+    const selectedOption=mondaySelect.options[mondaySelect.selectedIndex];
+    if(!selectedOption || selectedOption.disabled || !selectedOption.value) return;
+
+    const submitButton=form.querySelector('button[type="submit"]');
+    const originalText=submitButton.textContent;
+    submitButton.disabled=true;
+    submitButton.textContent="Joining…";
+    formStatus.classList.remove("active","error");
+    formStatus.textContent="";
+
+    const payload={
+      monday:selectedOption.value,
+      name:form.elements.name.value.trim(),
+      email:form.elements.email.value.trim(),
+      timestamp:new Date().toISOString()
+    };
+
+    try{
+      if(!REGISTRATION_ENDPOINT){
+        formStatus.classList.add("active");
+        formStatus.textContent="✓ Preview registration received for "+selectedOption.textContent+". The Google Sheet is ready; the final connection only needs the Apps Script web-app URL.";
+        return;
+      }
+
+      const response=await fetch(REGISTRATION_ENDPOINT,{
+        method:"POST",
+        mode:"cors",
+        headers:{"Content-Type":"text/plain;charset=utf-8"},
+        body:JSON.stringify(payload)
+      });
+
+      if(!response.ok) throw new Error("Registration failed");
+      form.reset();
+      formStatus.classList.add("active");
+      formStatus.textContent="✓ You’re in! We’ve received your CatchLux registration.";
+    }catch(error){
+      formStatus.classList.add("active","error");
+      formStatus.textContent="We couldn’t save your registration. Please try again or join us on WhatsApp.";
+    }finally{
+      submitButton.disabled=false;
+      submitButton.textContent=originalText;
+    }
   });
 }
 
