@@ -341,3 +341,7 @@ footer{background:var(--navy-deep);color:#fff;padding:34px 0}
 @media(prefers-reduced-motion:reduce){
   .site-header{transition:none}
 }
+
+/* Smaller navigation logo on desktop and mobile. */
+.brand img{width:139px;max-height:66px}
+@media(max-width:720px){.brand img{width:109px}}
