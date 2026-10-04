@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="style.css">
 <style>
 .wero-payment { display: inline-flex; align-items: center; justify-content: center; margin: 4px 0 20px; background: #fff48b; border-radius: 12px; text-decoration: none; transition: box-shadow .2s ease, transform .2s ease; }
-.wero-payment img { display: block; width: 206px; height: 78px; max-width: 100%; border-radius: 12px; }
+.wero-payment img { display: block; width: 206px; height: 54px; max-width: 100%; border-radius: 12px; }
 .wero-payment:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(20, 30, 52, .16); }
 .wero-payment:focus-visible { outline: 3px solid #142039; outline-offset: 4px; }
 </style>
@@ -98,9 +98,11 @@
         <p class="eyebrow">Come play with us</p>
         <h2>Choose a Monday.</h2>
         <p>
-          Pick an upcoming Monday and leave your details. Each session costs €15, payable via Wero.
+          Pick an upcoming Monday and leave your details.
         </p>
-        <a class="wero-payment" href="https://share.weropay.eu/p/1/s/ziIMdMNq5T?a=1500&amp;c=EUR" aria-label="Pay €15 for a CatchLux session with Wero" title="Pay €15 with Wero"><img src="data:image/png;base64,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" width="206" height="78" alt="Pay €15 with Wero"></a>
+        <p><strong>€15 per session</strong> · Pay via Wero.
+        </p>
+        <a class="wero-payment" href="https://share.weropay.eu/p/1/s/ziIMdMNq5T?a=1500&amp;c=EUR" aria-label="Pay €15 for a CatchLux session with Wero" title="Pay €15 with Wero"><img src="data:image/png;base64,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" width="206" height="54" alt="Pay €15 with Wero"></a>
         <div class="whatsapp-note">
           Prefer WhatsApp? <a href="https://chat.whatsapp.com/Cs7UXp6SfGL02tKQD6ih8v" target="_blank" rel="noopener noreferrer">Join the community here.</a>
         </div>
@@ -136,19 +138,18 @@
         <p class="eyebrow">Your Monday plans</p>
         <h2>Monday evening catchball</h2>
         
-        <p><strong>€15 per session</strong> · Pay via Wero.</p>
       </div>
 
       <div class="session-grid">
         <div class="session-card reveal">
-          <span class="session-label">When</span>
-          <strong>Mondays</strong>
-          <p>19:30–21:30</p>
-        </div>
-        <div class="session-card reveal">
           <span class="session-label">Season</span>
           <strong>September 2026</strong>
           <p>to June 2027</p>
+        </div>
+        <div class="session-card reveal">
+          <span class="session-label">When</span>
+          <strong>Mondays</strong>
+          <p>19:30–21:30</p>
         </div>
         <div class="session-card reveal">
           <span class="session-label">Where</span>
