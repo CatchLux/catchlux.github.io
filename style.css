@@ -313,3 +313,7 @@ footer{background:var(--navy-deep);color:#fff;padding:34px 0}
   .reveal{opacity:1;transform:none;transition:none}
   .button{transition:none}
 }
+.brand img{width:185px;height:auto;object-fit:contain;border-radius:10px}
+.footer-logo{width:100px;height:auto;object-fit:contain;border-radius:10px}
+.join-form select option:disabled{color:#999;background:#eee}
+.form-status.active{padding:12px;border-radius:12px;background:var(--blue-soft)}
