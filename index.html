@@ -5,11 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CatchLux – Women's Catchball Luxembourg</title>
 <meta name="description" content="CatchLux is a welcoming women's catchball community in Luxembourg. Beginner-friendly Monday sessions during the 2026–27 season.">
-<link rel="icon" href="Images/CatchLux_logo_exact.png">
+<link rel="icon" type="image/png" sizes="256x256" href="Images/favicon-catch.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css?v=20261004-logo139">
+<link rel="stylesheet" href="catchlux-home.css?v=20261004-1641">
 <style>
 .wero-payment { display: inline-flex; align-items: center; justify-content: center; margin: 4px 0 20px; background: #fff48b; border-radius: 12px; text-decoration: none; transition: box-shadow .2s ease, transform .2s ease; }
 .wero-payment img { display: block; width: 206px; height: 54px; max-width: 100%; border-radius: 12px; }
@@ -46,7 +47,7 @@
 
     <div class="container hero-inner">
       <div class="hero-copy">
-        <div class="season-pill">2026–27 season · Mondays 19:30–21:30<br>St. George’s International School Luxembourg</div>
+        <div class="season-pill">2026–27 season · Mondays 19:30–21:30<br><a class="hero-location" href="https://www.google.com/maps/search/?api=1&amp;query=St%20George's%20International%20School%20Luxembourg%2C%2011%20rue%20des%20Peupliers%2C%20L-2328%20Luxembourg" target="_blank" rel="noopener noreferrer">St. George’s International School Luxembourg</a></div>
         <h1>
           <span>Get active.</span>
           <span class="pink">Meet people.</span>
@@ -122,6 +123,7 @@
             <option value="">Select a date</option>
           </select>
         </label>
+        <a id="selected-calendar-link" class="calendar-link selected-calendar-link" target="_blank" rel="noopener noreferrer" hidden>Add this Monday to Google Calendar</a>
 
         <label>
           <span>Your name</span>
@@ -233,6 +235,6 @@
   </div>
 </footer>
 
-<script src="script.js"></script>
+<script src="catchlux-home.js?v=20261004-1641"></script>
 </body>
 </html>

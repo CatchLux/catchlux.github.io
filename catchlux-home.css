@@ -1,0 +1,14 @@
+/* Homepage additions; shared styles and logo assets stay unchanged. */
+.season-pill{display:inline-block}
+.hero-location{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+.hero-location:hover{text-decoration-thickness:2px}
+.selected-calendar-link{margin-top:-4px;color:var(--navy);font-size:.9rem}
+.selected-calendar-link[hidden]{display:none}
+.faq-list summary{display:flex;align-items:center;justify-content:space-between;gap:18px}
+.faq-list summary::after{
+  content:"";width:9px;height:9px;flex-shrink:0;
+  border-right:2px solid currentColor;border-bottom:2px solid currentColor;
+  transform:rotate(45deg);transition:transform .2s ease;margin-right:3px;
+}
+.faq-list details[open] summary::after{transform:rotate(225deg)}
+@media(prefers-reduced-motion:reduce){.faq-list summary::after{transition:none}}
