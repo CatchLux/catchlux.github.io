@@ -14,4 +14,20 @@
 @media(prefers-reduced-motion:reduce){.faq-list summary::after{transition:none}}
 
 /* Preserve the original photo; this override applies only to the homepage. */
-.hero-photo{background-image:url("Images/catchlux-action-2026.svg");background-position:center 45%}
+.hero{background-color:var(--navy-deep)}
+.hero-photo{
+  left:38%;
+  background-image:url("Images/catchlux-action-2026.svg");
+  background-position:center 34%;
+  -webkit-mask-image:linear-gradient(to right,transparent 0%,#000 18%);
+  mask-image:linear-gradient(to right,transparent 0%,#000 18%);
+}
+@media(max-width:720px){
+  .hero-photo{
+    left:0;
+    background-size:auto 130%;
+    background-position:center 34%;
+    -webkit-mask-image:none;
+    mask-image:none;
+  }
+}
