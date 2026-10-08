@@ -73,16 +73,47 @@ const sessions = [
 ];
 
 const mondaySelect=document.querySelector("#monday");
-if(mondaySelect){
-  sessions.forEach(([date,disabled])=>{
-    const d=new Date(date+"T12:00:00");
-    const label=new Intl.DateTimeFormat("en-GB",{weekday:"long",day:"numeric",month:"long"}).format(d);
+function luxembourgToday(now=new Date()){
+  const parts=new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/Luxembourg",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(now);
+  const values=Object.fromEntries(parts.map(part=>[part.type,part.value]));
+  return values.year+"-"+values.month+"-"+values.day;
+}
+
+function isCurrentOrFutureSession(date){
+  return date>=luxembourgToday() && sessions.some(([session,disabled])=>session===date && !disabled);
+}
+
+let dropdownDay="";
+function refreshMondayDates(){
+  if(!mondaySelect) return;
+  const today=luxembourgToday();
+  const selectedDate=mondaySelect.value;
+  dropdownDay=today;
+  // Keep the original placeholder and replace only the generated dates.
+  while(mondaySelect.options.length>1) mondaySelect.remove(1);
+  sessions.filter(([date])=>date>=today).forEach(([date,disabled])=>{
+    const d=new Date(date+"T12:00:00Z");
+    const label=new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/Luxembourg",weekday:"long",day:"numeric",month:"long"}).format(d);
     const option=document.createElement("option");
     option.value=date;
     option.disabled=disabled;
     option.textContent=disabled ? label+" — no session" : label;
     mondaySelect.appendChild(option);
   });
+  mondaySelect.value=isCurrentOrFutureSession(selectedDate)?selectedDate:"";
+}
+
+if(mondaySelect){
+  refreshMondayDates();
+  const refreshIfDayChanged=()=>{
+    if(dropdownDay!==luxembourgToday()){
+      refreshMondayDates();
+      updateSelectedCalendarLink();
+    }
+  };
+  window.setInterval(refreshIfDayChanged,30000);
+  window.addEventListener("focus",refreshIfDayChanged);
+  document.addEventListener("visibilitychange",()=>{if(!document.hidden)refreshIfDayChanged()});
 }
 
 const REGISTRATION_ENDPOINT = "https://script.google.com/macros/s/AKfycbzC602tnl3QAYk1uN9fc9Ck7Kk6JcigcEmLdw6846U88mHPHLqLXFvr1M0w2sEUXAUvqA/exec";
@@ -104,7 +135,7 @@ const selectedCalendarLink=document.querySelector("#selected-calendar-link");
 function updateSelectedCalendarLink(){
   if(!selectedCalendarLink || !mondaySelect) return;
   const option=mondaySelect.options[mondaySelect.selectedIndex];
-  const available=option && !option.disabled && sessions.some(([date,disabled])=>date===option.value && !disabled);
+  const available=option && !option.disabled && isCurrentOrFutureSession(option.value);
   selectedCalendarLink.hidden=!available;
   if(available){
     selectedCalendarLink.href=buildCalendarUrl(option.value);
@@ -129,7 +160,7 @@ if(form){
     if(!form.reportValidity()) return;
 
     const selectedOption=mondaySelect.options[mondaySelect.selectedIndex];
-    if(!selectedOption || selectedOption.disabled || !selectedOption.value || !sessions.some(([date,disabled]) => date === selectedOption.value && !disabled)) return;
+    if(!selectedOption || selectedOption.disabled || !selectedOption.value || !isCurrentOrFutureSession(selectedOption.value)) return;
 
     const submitButton=form.querySelector('button[type="submit"]');
     const originalText=submitButton.textContent;
