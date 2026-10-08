@@ -12,3 +12,6 @@
 }
 .faq-list details[open] summary::after{transform:rotate(225deg)}
 @media(prefers-reduced-motion:reduce){.faq-list summary::after{transition:none}}
+
+/* Preserve the original photo; this override applies only to the homepage. */
+.hero-photo{background-image:url("Images/catchlux-action-2026.svg");background-position:center 45%}
