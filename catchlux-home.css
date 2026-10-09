@@ -18,6 +18,7 @@
 .hero-photo{
   left:38%;
   background-image:url("Images/catchlux-action-2026.svg");
+  filter:brightness(1.12);
   background-position:center 34%;
   -webkit-mask-image:linear-gradient(to right,transparent 0%,#000 18%);
   mask-image:linear-gradient(to right,transparent 0%,#000 18%);
